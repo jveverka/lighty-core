@@ -7,6 +7,7 @@
  */
 package io.lighty.codecs;
 
+import io.lighty.codecs.api.BindingToNormalizedNodeCodecFactory;
 import io.lighty.codecs.api.Codec;
 import io.lighty.codecs.api.NodeConverter;
 import java.io.IOException;
@@ -24,7 +25,6 @@ import javax.xml.transform.dom.DOMSource;
 import io.lighty.codecs.xml.XmlElement;
 import io.lighty.codecs.xml.XmlUtil;
 import org.opendaylight.controller.md.sal.binding.impl.BindingToNormalizedNodeCodec;
-import org.opendaylight.controller.md.sal.binding.impl.BindingToNormalizedNodeCodecFactory;
 import org.opendaylight.mdsal.binding.generator.impl.GeneratedClassLoadingStrategy;
 import org.opendaylight.restconf.common.errors.RestconfDocumentedException;
 import org.opendaylight.yangtools.rfc8040.model.api.YangDataSchemaNode;
@@ -72,9 +72,8 @@ public class DataCodec<T extends DataObject> implements Codec<T> {
     private final SchemaContext schemaContext;
 
     public DataCodec(final SchemaContext schemaContext) {
-        this.codec = BindingToNormalizedNodeCodecFactory.newInstance(
-                GeneratedClassLoadingStrategy.getTCCLClassLoadingStrategy());
         this.schemaContext = schemaContext;
+        this.codec = BindingToNormalizedNodeCodecFactory.newInstance(GeneratedClassLoadingStrategy.getTCCLClassLoadingStrategy());
         this.codec.onGlobalContextUpdated(schemaContext);
         this.deserializeIdentifierCodec = new DeserializeIdentifierCodec(schemaContext);
         this.serializeIdentifierCodec = new SerializeIdentifierCodec(schemaContext);

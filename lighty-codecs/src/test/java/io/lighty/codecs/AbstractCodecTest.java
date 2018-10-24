@@ -185,7 +185,7 @@ public abstract class AbstractCodecTest {
     private SchemaContext getSchemaContext(List<YangModuleInfo> moduleInfos) {
         moduleInfoBackedCntxt.addModuleInfos(moduleInfos);
         Optional<SchemaContext> tryToCreateSchemaContext =
-                moduleInfoBackedCntxt.tryToCreateSchemaContext().toJavaUtil();
+                moduleInfoBackedCntxt.tryToCreateSchemaContext();
         if (!tryToCreateSchemaContext.isPresent()) {
             throw new IllegalStateException();
         }
